@@ -2,7 +2,7 @@
 
 namespace App\Entity\Categories;
 
-use App\Entity\Presentations\Presentation;
+use App\Entity\Movies\Movie;
 use App\Repository\Categories\CategoryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -17,17 +17,22 @@ class Category
     private $id;
 
     #[ORM\Column(type: 'string', length: 255)]
-    private ?string $name;
+    private ?string $title;
 
-    #[ORM\Column(type: 'integer')]
-    private ?int $active;
+    #[ORM\Column(type: 'boolean')]
+    private ?bool $active;
 
-    #[ORM\OneToMany(mappedBy: 'category', targetEntity: Presentation::class)]
-    private ArrayCollection $presentations;
+    #[ORM\OneToMany(mappedBy: 'category_id', targetEntity: Movie::class)]
+    private Collection $movies;
 
-    public function __construct()
+    public function __construct(
+        string $title,
+        bool $active
+    )
     {
-        $this->presentations = new ArrayCollection();
+        $this->title = $title;
+        $this->active = $active;
+        $this->movies = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -35,24 +40,24 @@ class Category
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getTitle(): ?string
     {
-        return $this->name;
+        return $this->title;
     }
 
-    public function setName(string $name): self
+    public function setTitle(string $title): self
     {
-        $this->name = $name;
+        $this->title = $title;
 
         return $this;
     }
 
-    public function getActive(): ?int
+    public function getActive(): ?bool
     {
         return $this->active;
     }
 
-    public function setActive(int $active): self
+    public function setActive(bool $active): self
     {
         $this->active = $active;
 
@@ -60,32 +65,41 @@ class Category
     }
 
     /**
-     * @return Collection|Presentation[]
+     * @return Collection|Movie[]
      */
-    public function getPresentations(): Collection
+    public function getMovies(): Collection
     {
-        return $this->presentations;
+        return $this->movies;
     }
 
-    public function addPresentation(Presentation $presentation): self
+    public function addMovies(Movie $movie): self
     {
-        if (!$this->presentations->contains($presentation)) {
-            $this->presentations[] = $presentation;
-            $presentation->setCategory($this);
+        if (!$this->movies->contains($movie)) {
+            $this->movies[] = $movie;
+            $movie->setCategory($this);
         }
 
         return $this;
     }
 
-    public function removePresentation(Presentation $presentation): self
+    public function removeMovie(Movie $movie): self
     {
-        if ($this->presentations->removeElement($presentation)) {
+        if ($this->movies->removeElement($movie)) {
             // set the owning side to null (unless already changed)
-            if ($presentation->getCategory() === $this) {
-                $presentation->setCategory(null);
+            if ($movie->getCategory() === $this) {
+                $movie->setCategory(null);
             }
         }
 
         return $this;
+    }
+
+    public function edit(
+        string $title,
+        bool $active
+    )
+    {
+        $this->title = $title;
+        $this->active = $active;
     }
 }

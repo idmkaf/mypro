@@ -1,7 +1,31 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Strona główna{% endblock %}
+{% block title %}Bądź zdrowy{% endblock %}
 
 {% block body %}
-<div>strona testowa</div>
+
+    <section class="managment-creating-categories">
+        <div class="container pt-5 pb-5">
+            <button type="button" class="btn btn-secondary add-category">Dodaj kategorię</button>
+        </div>
+    </section>
+    <section class="management-categories">
+        <div class="container pt-5 pb-2">
+            <div class="row">
+                {% for category in categories %}
+                <div class="col-12 col-sm-6 col-md-4 mb-3">
+                    <div class="card" style="height: 150px;">
+                        <div class="card-body h-100 w-auto d-flex flex-column justify-content-center align-items-center">
+                            <h5 class="card-title">{{ category.title }}</h5>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    <section class="management-images">
+
+    </section>
+
 {% endblock %}

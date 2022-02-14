@@ -1,0 +1,43 @@
+html {
+    height: 100vh;
+}
+
+* {
+    font-family: 'segoe-ui-normal', sans-serif;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+.management-categories {
+    background: #FFFFFF;
+    box-shadow: 0 4px 20px 4px rgba(0, 0, 0, 0.25);
+}
+.management-categories .card-title {
+    font-family: 'segoe-ui-normal', sans-serif;;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 24px;
+    text-transform: uppercase;
+    color: #1C1C1A;
+}
+.management-categories .card {
+    background: #F7F7F7;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 0;
+    border: 0;
+    transition: .1s;
+}
+.management-categories .card:hover {
+    transform: scale(1.05);
+}
+.management-categories .card:hover {
+    border: 2px solid #FF5733;
+}
+.add-category {
+    background: #FF5733;
+    border: 1px solid #FF5733;
+}
