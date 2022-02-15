@@ -19,7 +19,7 @@ class Category
     #[ORM\Column(type: 'string', length: 255)]
     private ?string $title;
 
-    #[ORM\Column(type: 'boolean')]
+    #[ORM\Column(type: 'boolean', options: ['default' => true])]
     private ?bool $active;
 
     #[ORM\OneToMany(mappedBy: 'category_id', targetEntity: Movie::class)]

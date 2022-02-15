@@ -13,13 +13,21 @@ class CategoryFixtures extends Fixture
         // $product = new Product();
         // $manager->persist($product);
 
-        $category = new Category(
-            'staw skroniowo-żuchwowy',true,
-//            'łopatki - barki', true,
-//            'biodra', true,
-//            'ćwiczenia różne', true,
-        );
-        $manager->persist($category);
+        $list = [
+            'staw skroniowo-żuchwowy',
+            'łopatki - barki',
+            'biodra',
+            'ćwiczenia różne'
+        ];
+
+        foreach ($list as $item) {
+            $category = new Category(
+                $item,
+                true
+            );
+            $manager->persist($category);
+        }
+
         $manager->flush();
     }
 }
